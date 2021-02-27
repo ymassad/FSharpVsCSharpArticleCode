@@ -3,12 +3,10 @@
 module Module1 =
     type Group = {digit : char; count : int}
 
-    let incrementCount group = {group with count = group.count + 1};
-
-    let encodeGroup group = group.count.ToString() + group.digit.ToString()
-
     let lookAndSay (str:string) =
         let stringDigits = str |> Seq.toList
+
+        let incrementCount group = {group with count = group.count + 1};
 
         let rec getOneGroup nonEmptyDigits = 
             match nonEmptyDigits with
@@ -21,6 +19,8 @@ module Module1 =
                 | _ ->
                     let group = getOneGroup digits
                     Some(group, digits |> List.skip group.count)
+
+        let encodeGroup group = group.count.ToString() + group.digit.ToString()
 
         stringDigits
             |> Seq.unfold getOneGroupAndRemainingDigits
