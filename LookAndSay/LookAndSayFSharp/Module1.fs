@@ -10,7 +10,7 @@ module Module1 =
 
         let rec getOneGroup nonEmptyDigits = 
             match nonEmptyDigits with
-                | x :: y :: z when x = y -> getOneGroup(y :: z) |> incrementCount
+                | x :: y :: rest when x = y -> getOneGroup(y :: rest) |> incrementCount
                 | x :: _ -> { digit = x; count = 1}
 
         let getOneGroupAndRemainingDigits digits =
