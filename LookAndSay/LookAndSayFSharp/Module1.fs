@@ -1,28 +1,28 @@
 ﻿namespace LookAndSayFSharp
 
 module Module1 =
-    type Group = {character : char; count : int}
+    type Group = {digit : char; count : int}
 
     let incrementCount group = {group with count = group.count + 1};
 
-    let encodeGroup group = group.count.ToString() + group.character.ToString()
+    let encodeGroup group = group.count.ToString() + group.digit.ToString()
 
     let lookAndSay (str:string) =
-        let stringChars = str |> Seq.toList
+        let stringDigits = str |> Seq.toList
 
-        let rec getOneGroup nonEmptyChars = 
-            match nonEmptyChars with
+        let rec getOneGroup nonEmptyDigits = 
+            match nonEmptyDigits with
                 | x :: y :: z when x = y -> getOneGroup(y :: z) |> incrementCount
-                | x :: _ -> { character = x; count = 1}
+                | x :: _ -> { digit = x; count = 1}
 
-        let getOneGroupAndRemainingChars chars =
-            match chars with
+        let getOneGroupAndRemainingDigits digits =
+            match digits with
                 | [] -> None
                 | _ ->
-                    let group = getOneGroup chars
-                    Some(group, chars |> List.skip group.count)
+                    let group = getOneGroup digits
+                    Some(group, digits |> List.skip group.count)
 
-        stringChars
-            |> Seq.unfold getOneGroupAndRemainingChars
+        stringDigits
+            |> Seq.unfold getOneGroupAndRemainingDigits
             |> Seq.map encodeGroup
             |> String.concat ""
