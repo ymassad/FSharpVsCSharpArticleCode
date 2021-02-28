@@ -18,11 +18,12 @@ module Module1 =
                 | [] -> None
                 | _ ->
                     let group = getOneGroup digits
-                    Some(group, digits |> List.skip group.count)
+                    Some (group, digits |> List.skip group.count)
+
+        let groups = stringDigits |> Seq.unfold getOneGroupAndRemainingDigits
 
         let encodeGroup group = group.count.ToString() + group.digit.ToString()
 
-        stringDigits
-            |> Seq.unfold getOneGroupAndRemainingDigits
+        groups
             |> Seq.map encodeGroup
             |> String.concat ""
